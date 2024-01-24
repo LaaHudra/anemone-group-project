@@ -41,5 +41,26 @@
     ></script>
     <script defer src="./js/mobile-menu.js"></script>
     <script src="./js/modal.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      // Find all include elements
+      const includes = document.querySelectorAll('include[src]');
+      includes.forEach(include => {
+        // Fetch the content of the include file
+        fetch(include.getAttribute('src'))
+          .then(response => response.text())
+          .then(data => {
+            // Create a temporary div to hold the response
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = data;
+          
+            // Replace the include element with the fetched content
+            include.replaceWith(tempDiv.firstChild);
+          })
+          .catch(console.error);
+      });
+    });
+
+  </script>
   </body>
 </html>
